@@ -1,5 +1,5 @@
 import Label from "../models/label";
-import Note from "../models/Note";
+import Note from "../models/note";
 
 export const LABELS = [
   new Label("l1", "React Native"),
@@ -8,6 +8,7 @@ export const LABELS = [
   new Label("l4", "Team Work"),
   new Label("l5", "React Basic"),
 ];
+
 export const COLORS = [
   "lightseagreen",
   "skyblue",
@@ -18,6 +19,7 @@ export const COLORS = [
   "orange",
   "palegreen",
 ];
+
 export const NOTES = [
   new Note(
     "n1",
@@ -52,6 +54,7 @@ export const NOTES = [
     false
   ),
 ];
+
 export const TRASH = [
   new Note(
     "n5",

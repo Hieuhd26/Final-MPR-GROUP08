@@ -7,6 +7,20 @@ export const LABELS = [
   new Label("l3", "Mini Project"),
   new Label("l4", "Team Work"),
   new Label("l5", "React Basic"),
+  new Label("l6", "Spring Boot"),
+  // new Label("l7", "Hibernate"),
+  // new Label("l8", "Maven"),
+  // new Label("l9", "MySQL"),
+  // new Label("l10", "GIT"),
+  // new Label("l11", "GitLab"),
+  // new Label("l12", "GitHub"),
+  // new Label("l13", "SocketIO"),
+  // new Label("l14", "ORM"),
+  // new Label("l15", "ChatGPT"),
+  // new Label("l16", "Reactjs"),
+  // new Label("l17", "Nodemon"),
+  // new Label("l18", "top 1 hải dương"),
+  // new Label("l19", "white hat"),
 ];
 
 export const COLORS = [

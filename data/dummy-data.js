@@ -8,19 +8,19 @@ export const LABELS = [
   new Label("l4", "Team Work"),
   new Label("l5", "React Basic"),
   new Label("l6", "Spring Boot"),
-  // new Label("l7", "Hibernate"),
-  // new Label("l8", "Maven"),
-  // new Label("l9", "MySQL"),
-  // new Label("l10", "GIT"),
-  // new Label("l11", "GitLab"),
-  // new Label("l12", "GitHub"),
-  // new Label("l13", "SocketIO"),
-  // new Label("l14", "ORM"),
-  // new Label("l15", "ChatGPT"),
-  // new Label("l16", "Reactjs"),
-  // new Label("l17", "Nodemon"),
-  // new Label("l18", "top 1 hải dương"),
-  // new Label("l19", "white hat"),
+  new Label("l7", "Hibernate"),
+  new Label("l8", "Maven"),
+  new Label("l9", "MySQL"),
+  new Label("l10", "GIT"),
+  new Label("l11", "GitLab"),
+  new Label("l12", "GitHub"),
+  new Label("l13", "SocketIO"),
+  new Label("l14", "ORM"),
+  new Label("l15", "ChatGPT"),
+  new Label("l16", "Reactjs"),
+  new Label("l17", "Nodemon"),
+  new Label("l18", "top 1 hải dương"),
+  new Label("l19", "white hat"),
 ];
 
 export const COLORS = [
@@ -92,6 +92,22 @@ export const TRASH = [
     ["l1", "l2", "l3", "l4"],
     "One more note",
     new Date("2024-4-20T15:30:00"),
+    false
+  ),
+  new Note(
+    "n8",
+    COLORS[6],
+    ["l1", "l2", "l3", "l4"],
+    "One more note",
+    new Date("2024-4-20T15:30:00"),
+    false
+  ),
+  new Note(
+    "n9",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
     false
   ),
 ];

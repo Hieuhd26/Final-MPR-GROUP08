@@ -29,17 +29,19 @@ export function HomeScreen() {
     }
     return (
       <View style={style.note}>
-        <View>
+        <View style={{flexDirection:"row"}}>
           <View
             style={{
               backgroundColor: item.color,
               color: item.color,
-              width:10,
-              padding: 20,
+              width:3,
+              height:3,
+              padding: 5,
               borderRadius: 20,
               overflow: "hidden",
+              marginRight: 10
             }}
-          >
+          >  
           </View>
           <Text style={style.noteTime}> {timeAgo}</Text>
         </View>
@@ -64,7 +66,7 @@ const style = StyleSheet.create({
   container: {
     marginLeft: 20,
     marginTop: 30,
-    marginBottom: 20,
+    marginBottom: 200,
     marginRight: 20,
   },
   length: {
@@ -88,8 +90,7 @@ const style = StyleSheet.create({
   noteTime: {
     color: "#d3d3d3",
     marginBottom: 5,
+    fontSize: 14
   },
-  timeView: {
-    flexDirection: "row",
-  },
+  
 });

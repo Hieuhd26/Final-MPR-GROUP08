@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -9,26 +9,23 @@ import {
   Modal,
   Alert,
 } from "react-native";
-import { LABELS } from "../data/dummy-data";
+import { LabelContext } from  "../store/context/LabelContext";
 
 export function LabelsScreen() {
+  const { labels, addLabel, updateLabel, deleteLabel, searchLabels } = useContext(LabelContext);
   const [searchQuery, setSearchQuery] = useState("");
-  const [totalLabels, setTotalLabels] = useState(LABELS); // ko thêm lable mới dựa trên mảng searchreult
-  const [searchResults, setSearchResults] = useState(LABELS);
+  const [searchResults, setSearchResults] = useState(labels);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState(null);
   const [labelName, setLabelName] = useState("");
 
   useEffect(() => {
     if (searchQuery === "") {
-      setSearchResults(totalLabels);
+      setSearchResults(labels);
     } else {
-      const filteredResults = totalLabels.filter((label) =>
-        label.label.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSearchResults(filteredResults);
+      setSearchResults(searchLabels(searchQuery));
     }
-  }, [searchQuery, totalLabels]);
+  }, [searchQuery, labels]);
 
   const handleSearch = (text) => {
     setSearchQuery(text);
@@ -36,14 +33,7 @@ export function LabelsScreen() {
 
   const handleCreateLabel = () => {
     if (!searchQuery.trim()) return;
-
-    const newLabel = {
-      id: Math.random().toString(),
-      label: searchQuery,
-    };
-
-    const updatedLabels = [...totalLabels, newLabel];
-    setTotalLabels(updatedLabels);
+    addLabel(searchQuery);
     setSearchQuery("");
   };
 
@@ -54,18 +44,16 @@ export function LabelsScreen() {
   };
 
   const handleSave = () => {
-    const updatedLabels = totalLabels.map((label) =>
-      label.id === selectedLabel.id ? { ...label, label: labelName } : label
-    );
-    setTotalLabels(updatedLabels);
+    if (selectedLabel) {
+      updateLabel(selectedLabel.id, labelName);
+    }
     setModalVisible(false);
   };
 
   const handleDelete = () => {
-    const updatedLabels = totalLabels.filter(
-      (label) => label.id !== selectedLabel.id
-    );
-    setTotalLabels(updatedLabels);
+    if (selectedLabel) {
+      deleteLabel(selectedLabel.id);
+    }
     setModalVisible(false);
   };
 
@@ -107,7 +95,7 @@ export function LabelsScreen() {
 
       <View style={styles.header}>
         <Text style={styles.totalLabelsText}>
-          Total Labels: {totalLabels.length}
+          Total Labels: {labels.length}
         </Text>
       </View>
       <TextInput
@@ -194,10 +182,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     alignItems: "center",
-  },
-  modalText: {
-    marginBottom: 20,
-    fontSize: 18,
   },
   button: {
     padding: 10,

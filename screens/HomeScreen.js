@@ -1,13 +1,13 @@
-import { View,Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { NOTES } from "../data/dummy-data";
 import { COLORS } from "../data/dummy-data";
 import { useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 
-
-export function HomeScreen() { // <-- Make sure to use a named export here
+export function HomeScreen() {
   const [notes, setNotes] = useState(NOTES);
-  const renderNotes = ({item}) => {
+
+  const renderNotes = ({ item }) => {
     const now = new Date();
     const createAt = new Date(item.updateAt);
     const elapsedTime = now - createAt;
@@ -27,59 +27,69 @@ export function HomeScreen() { // <-- Make sure to use a named export here
     } else {
       timeAgo = `${seconds} second${seconds > 1 ? "s" : ""} ago`;
     }
-    return(
+    return (
       <View style={style.note}>
-        <Text>
-          <Text style={{backgroundColor:item.color,
-            color: item.color, padding: 20, borderRadius: 100,overflow:'hidden'
-          }}>.</Text>
+        <View>
+          <View
+            style={{
+              backgroundColor: item.color,
+              color: item.color,
+              width:10,
+              padding: 20,
+              borderRadius: 20,
+              overflow: "hidden",
+            }}
+          >
+          </View>
           <Text style={style.noteTime}> {timeAgo}</Text>
-        </Text>
-        
+        </View>
         <Text>{item.content}</Text>
       </View>
     );
-  };   
-    return (
-      <View style={style.container}>
-        <Text style={style.length}>{notes.length} notes</Text>
-        <ScrollView>
-          <FlatList data={notes} renderItem={renderNotes} />
-        </ScrollView> 
-      </View>
-    );
-  }
+  };
 
-  const style = StyleSheet.create({
-    container : {
-      marginLeft: 20,
-      marginTop: 30,
-      marginBottom: 200,
-      marginRight:20,
+  return (
+    <View style={style.container}>
+      <Text style={style.length}>{notes.length} notes</Text>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={notes}
+        renderItem={renderNotes}
+      />
+    </View>
+  );
+}
+
+const style = StyleSheet.create({
+  container: {
+    marginLeft: 20,
+    marginTop: 30,
+    marginBottom: 20,
+    marginRight: 20,
+  },
+  length: {
+    fontWeight: "700",
+    marginBottom: 20,
+    fontSize: 20,
+    color: COLORS[2],
+  },
+  note: {
+    backgroundColor: "white",
+    padding: 20,
+    marginTop: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1,
     },
-    length : {
-      fontWeight: "700",
-      marginBottom:20,
-      fontSize: 20, 
-      color: COLORS[2]
-    },
-    note :{
-      backgroundColor: "white",
-      padding: 20,
-      marginTop: 20,
-      shadowColor: "#000000",
-      shadowOpacity: 0.2,
-      shadowRadius: 1,
-      shadowOffset: {
-        height: 1,
-        width: 1
-      }
-    },
-    noteTime : {
-      color:"#d3d3d3",
-      marginBottom: 5
-    },
-    timeView : {
-      flexDirection: 'row'
-    }
-  })
+  },
+  noteTime: {
+    color: "#d3d3d3",
+    marginBottom: 5,
+  },
+  timeView: {
+    flexDirection: "row",
+  },
+});

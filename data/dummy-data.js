@@ -67,6 +67,38 @@ export const NOTES = [
     new Date("2024-4-20T12:25:00"),
     false
   ),
+  new Note(
+    "n5",
+    COLORS[5],
+    ["l1"],
+    "Ok the first note here!",
+    new Date("2024-4-20T12:25:00"),
+    false
+  ),
+  new Note(
+    "n6",
+    COLORS[5],
+    ["l1"],
+    "Ok the first note here!",
+    new Date("2024-4-20T12:25:00"),
+    false
+  ),
+  new Note(
+    "n7",
+    COLORS[5],
+    ["l1"],
+    "Ok the first note here!",
+    new Date("2024-4-20T12:25:00"),
+    false
+  ),
+  new Note(
+    "n8",
+    COLORS[5],
+    ["l1"],
+    "Ok the first note here!",
+    new Date("2024-4-20T12:25:00"),
+    false
+  ),
 ];
 
 export const TRASH = [

@@ -6,16 +6,17 @@ import {
   Image,
   Button,
   FlatList,
-  TouchableOpacity,
   Modal,
   Pressable,
 } from "react-native";
-import { TrashNoteContext } from "../store/context/Trash_context";
+import { TrashNoteContext } from "../store/context/TrashContext";
+import { LabelContext } from  "../store/context/LabelContext";
 import bin from "../assets/bin.png";
 import { Feather } from "@expo/vector-icons";
 import { LABELS } from "../data/dummy-data";
 
 export function TrashScreen() {
+  const { labels, addLabel, updateLabel, deleteLabel, searchLabels } = useContext(LabelContext);
   const trashNoteCtx = useContext(TrashNoteContext);
   const trashNotes = trashNoteCtx.notes;
 
@@ -55,8 +56,8 @@ export function TrashScreen() {
     const note = itemData.item;
     const noteLabels = note.labelIds
       .map((labelId) => {
-        const label = LABELS.find((label) => label.id === labelId);
-        return label ? label.label : "Unknown Label 🤔";
+        const label = labels.find((label) => label.id === labelId);
+        return label ? label.label : "Unknown 🤔";
       })
       .join(", ");
 

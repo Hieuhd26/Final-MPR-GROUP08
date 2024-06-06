@@ -9,37 +9,40 @@ import { HomeScreen } from "./screens/HomeScreen";
 import { TrashScreen } from "./screens/TrashScreen";
 import { FolderScreen } from "./screens/FoldersScreen";
 import { LabelsScreen } from "./screens/LabelsScreen";
-import {EditNoteScreen} from "./screens/EditNoteScreen";
+import { EditNoteScreen } from "./screens/EditNoteScreen";
 
-import { TrashNoteProvider } from "./store/context/Trash_context";
+import { TrashNoteProvider } from "./store/context/TrashContext";
+import { LabelProvider } from "./store/context/LabelContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function HomeStackNavigator(){
-  return(
+function HomeStackNavigator() {
+  return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="EditNote" component={EditNoteScreen} />
       {/*thêm vào đang bí  */}
     </Stack.Navigator>
-  )
+  );
 }
 
 export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <TrashNoteProvider>
-        <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Trash" component={TrashScreen} />
-            <Drawer.Screen name="Folders" component={FolderScreen} />
-            <Drawer.Screen name="Labels" component={LabelsScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
-      </TrashNoteProvider>
+      <LabelProvider>
+        <TrashNoteProvider>
+          <NavigationContainer>
+            <Drawer.Navigator initialRouteName="Home">
+              <Drawer.Screen name="Home" component={HomeScreen} />
+              <Drawer.Screen name="Trash" component={TrashScreen} />
+              <Drawer.Screen name="Folders" component={FolderScreen} />
+              <Drawer.Screen name="Labels" component={LabelsScreen} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </TrashNoteProvider>
+      </LabelProvider>
     </>
   );
 }

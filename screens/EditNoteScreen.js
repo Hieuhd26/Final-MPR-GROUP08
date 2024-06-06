@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { View,Text } from "react-native";
+import { View, Text } from "react-native";
 
+import { TrashNoteContext } from "../store/context/TrashContext";
 
-import { TrashNoteContext } from "../store/context/Trash_context";
-
-export function EditNoteScreen(){
-    const trashNoteCtx = useContext(TrashNoteContext)
-    return(
-        <View><Text>edit note screen</Text></View>
-    )
+export function EditNoteScreen() {
+  const trashNoteCtx = useContext(TrashNoteContext);
+  return (
+    <View>
+      <Text>edit note screen</Text>
+    </View>
+  );
 }

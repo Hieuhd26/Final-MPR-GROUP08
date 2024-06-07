@@ -38,7 +38,7 @@ export function TrashScreen() {
   };
 
   const handleDelete = () => {
-    trashNoteCtx.deleteNote(selectedNote.id);
+  trashNoteCtx.deleteNotePer(selectedNote.id);
     closeModal();
   };
 

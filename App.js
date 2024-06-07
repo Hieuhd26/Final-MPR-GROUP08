@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import { HomeScreen } from "./screens/HomeScreen";
 import { TrashScreen } from "./screens/TrashScreen";
 import { FolderScreen } from "./screens/FoldersScreen";
@@ -34,11 +37,49 @@ export default function App() {
       <LabelProvider>
         <TrashNoteProvider>
           <NavigationContainer>
-            <Drawer.Navigator initialRouteName="Home">
-              <Drawer.Screen name="Home" component={HomeScreen} />
-              <Drawer.Screen name="Trash" component={TrashScreen} />
-              <Drawer.Screen name="Folders" component={FolderScreen} />
-              <Drawer.Screen name="Labels" component={LabelsScreen} />
+            <Drawer.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                drawerActiveBackgroundColor: "#e4baa1", 
+               
+              }}
+            >
+              <Drawer.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  drawerIcon: ({ color, size }) => (
+                    <Entypo name="home" size={24} color="black" />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Trash"
+                component={TrashScreen}
+                options={{
+                  drawerIcon: ({ color, size }) => (
+                    <Entypo name="trash" size={24} color="black" />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Folders"
+                component={FolderScreen}
+                options={{
+                  drawerIcon: ({ color, size }) => (
+                    <Entypo name="folder" size={24} color="black" />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Labels"
+                component={LabelsScreen}
+                options={{
+                  drawerIcon: ({ color, size }) => (
+                    <MaterialIcons name="label" size={24} color="black" />
+                  ),
+                }}
+              />
             </Drawer.Navigator>
           </NavigationContainer>
         </TrashNoteProvider>

@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
-import { TRASH } from '../../data/dummy-data';
+import { TRASH,NOTES } from '../../data/dummy-data';
 
 export const TrashNoteContext = createContext({
   notes: [],
+  trashNotes: [],
   restoreNote: (id) => {},
   deleteNote: (id) => {},
   restoreAll: () => {},
@@ -11,15 +12,29 @@ export const TrashNoteContext = createContext({
 
 export function TrashNoteProvider({ children }) {
   const [trashNotes, setTrashNotes] = useState(TRASH);
+  const [notes, setNotes] = useState(NOTES);
   function restoreNoteHandler(id) {
-    setTrashNotes((currentNotes) => currentNotes.filter((note) => note.id !== id));
+    setTrashNotes((currentTrashNotes) => {
+      const noteToRestore = currentTrashNotes.find((note) => note.id === id);
+      if (noteToRestore) {
+        setNotes((currentNotes) => [...currentNotes, noteToRestore]);
+      }
+      return currentTrashNotes.filter((note) => note.id !== id);
+    });
   }
 
   function deleteNoteHandler(id) {
-    setTrashNotes((currentNotes) => currentNotes.filter((note) => note.id !== id));
+    setNotes((currentNotes) => {
+      const noteToDelete = currentNotes.find((note) => note.id === id);
+      if (noteToDelete) {
+        setTrashNotes((currentTrashNotes) => [...currentTrashNotes, noteToDelete]);
+      }
+      return currentNotes.filter((note) => note.id !== id);
+    });
   }
 
   function restoreAllHandler() {
+    setNotes((currentNotes) => [...currentNotes, ...trashNotes]);
     setTrashNotes([]);
   }
 
@@ -27,7 +42,8 @@ export function TrashNoteProvider({ children }) {
     setTrashNotes([]);
   }
   const value={
-    notes: trashNotes,
+    notes,
+    trashNotes,
     restoreNote: restoreNoteHandler,
     deleteNote: deleteNoteHandler,
     restoreAll: restoreAllHandler,

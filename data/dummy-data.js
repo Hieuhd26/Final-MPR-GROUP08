@@ -63,10 +63,11 @@ export const NOTES = [
     "n4",
     COLORS[5],
     ["l1"],
-    "Ok the first note here!",
+    "Cooking",
     new Date("2024-4-20T12:25:00"),
     false
   ),
+  
 ];
 
 export const TRASH = [

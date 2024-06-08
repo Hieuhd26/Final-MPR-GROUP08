@@ -1,13 +1,24 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView } from "react-native";
 import { NOTES } from "../data/dummy-data";
 import { COLORS } from "../data/dummy-data";
-import { useState } from "react";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { LabelContext } from  "../store/context/LabelContext";
+import { useState,useContext } from "react";
 
-export function HomeScreen() {
+import plus from "../assets/plus.png";
+
+export function HomeScreen({navigation}) {
   const [notes, setNotes] = useState(NOTES);
+  const { labels} = useContext(LabelContext);
 
+  
   const renderNotes = ({ item }) => {
+    const noteLabels = item.labelIds
+      .map((labelId) => {
+        const label = labels.find((label) => label.id === labelId);
+        return label ? label.label : "";
+        
+      })
+      .join(" | ");
     const now = new Date();
     const createAt = new Date(item.updateAt);
     const elapsedTime = now - createAt;
@@ -27,6 +38,8 @@ export function HomeScreen() {
     } else {
       timeAgo = `${seconds} second${seconds > 1 ? "s" : ""} ago`;
     }
+    
+    
     return (
       <View style={style.note}>
         <View style={{flexDirection:"row"}}>
@@ -45,20 +58,25 @@ export function HomeScreen() {
           </View>
           <Text style={style.noteTime}> {timeAgo}</Text>
         </View>
+        <Text style={style.noteLabels}>{noteLabels}</Text>
         <Text>{item.content}</Text>
       </View>
     );
   };
 
   return (
-    <View style={style.container}>
+    <View>
+      <View style={style.container}>
       <Text style={style.length}>{notes.length} notes</Text>
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={notes}
-        renderItem={renderNotes}
-      />
+      {(notes.length !== 0) ? <FlatList keyExtractor={(item) => item.id} data={notes} renderItem={renderNotes}/>
+       : <Text>Please add a new note</Text>}
+       </View>
+      <TouchableOpacity onPress={() => navigation.navigate('Add Note')}>
+      <Image source={plus} style={style.plusIcon}/>
+      </TouchableOpacity>
+    
     </View>
+    
   );
 }
 
@@ -92,5 +110,20 @@ const style = StyleSheet.create({
     marginBottom: 5,
     fontSize: 14
   },
+  noteLabels:{
+    marginBottom:10,
+    backgroundColor: "#F9F4F1",
+    alignSelf:"flex-start",
+  },
+  plusIcon : {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: 130,
+    right:20,
+    height: 50,
+    width: 50
+    
+  },
+  
   
 });

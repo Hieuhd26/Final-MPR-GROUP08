@@ -10,39 +10,44 @@ import { TrashScreen } from "./screens/TrashScreen";
 import { FolderScreen } from "./screens/FoldersScreen";
 import { LabelsScreen } from "./screens/LabelsScreen";
 import { EditNoteScreen } from "./screens/EditNoteScreen";
-
+import {AddNewNote} from "./screens/AddNewNote"
 import { TrashNoteProvider } from "./store/context/TrashContext";
 import { LabelProvider } from "./store/context/LabelContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function HomeStackNavigator() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="EditNote" component={EditNoteScreen} />
-      {/*thêm vào đang bí  */}
-    </Stack.Navigator>
-  );
-}
 
-export default function App() {
+ function Root()  {
   return (
-    <>
-      <StatusBar style="auto" />
-      <LabelProvider>
+    <LabelProvider>
         <TrashNoteProvider>
-          <NavigationContainer>
             <Drawer.Navigator initialRouteName="Home">
               <Drawer.Screen name="Home" component={HomeScreen} />
               <Drawer.Screen name="Trash" component={TrashScreen} />
               <Drawer.Screen name="Folders" component={FolderScreen} />
               <Drawer.Screen name="Labels" component={LabelsScreen} />
+              <Drawer.Screen name="Add Note" component={AddNewNote} />
             </Drawer.Navigator>
-          </NavigationContainer>
         </TrashNoteProvider>
       </LabelProvider>
+  )
+ }
+
+
+export default function App() {
+  return (
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Root" component={Root} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+        <Stack.Screen name="Add Note" component={AddNewNote} />
+      </Stack.Navigator>
+    </NavigationContainer>
+      
     </>
   );
 }

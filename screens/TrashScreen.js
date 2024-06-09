@@ -9,13 +9,14 @@ import {
   Modal,
   Pressable,
 } from "react-native";
-import { TrashNoteContext } from "../store/context/TrashContext";
-import { LabelContext } from  "../store/context/LabelContext";
+import { TrashNoteContext } from "../store/context/NoteContext";
+import { LabelContext } from "../store/context/LabelContext";
 import bin from "../assets/bin.png";
 import { Feather } from "@expo/vector-icons";
 
 export function TrashScreen() {
-  const { labels, addLabel, updateLabel, deleteLabel, searchLabels } = useContext(LabelContext);
+  const { labels, addLabel, updateLabel, deleteLabel, searchLabels } =
+    useContext(LabelContext);
   const trashNoteCtx = useContext(TrashNoteContext);
   const trashNotes = trashNoteCtx.trashNotes;
 
@@ -38,7 +39,7 @@ export function TrashScreen() {
   };
 
   const handleDelete = () => {
-  trashNoteCtx.deleteNotePer(selectedNote.id);
+    trashNoteCtx.deleteNotePer(selectedNote.id);
     closeModal();
   };
 
@@ -56,7 +57,7 @@ export function TrashScreen() {
     const noteLabels = note.labelIds
       .map((labelId) => {
         const label = labels.find((label) => label.id === labelId);
-        return label ? label.label : "Unknown 🤔";
+        return label ? label.label : null;
       })
       .join(", ");
 

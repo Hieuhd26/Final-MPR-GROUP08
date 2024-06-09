@@ -15,7 +15,7 @@ import { LabelsScreen } from "./screens/LabelsScreen";
 import { EditNoteScreen } from "./screens/EditNoteScreen";
 import { AddNewNote } from "./screens/AddNewNote";
 
-import { TrashNoteProvider } from "./store/context/TrashContext";
+import { TrashNoteProvider } from "./store/context/NoteContext";
 import { LabelProvider } from "./store/context/LabelContext";
 
 const Stack = createNativeStackNavigator();
@@ -87,7 +87,6 @@ export default function App() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -96,6 +95,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-
-

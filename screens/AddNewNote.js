@@ -21,8 +21,8 @@ const style = StyleSheet.create({
         height: 450,
         marginLeft: 20,
         marginTop: 30,
+        marginBottom: 200,
         marginRight: 20,
-        
     },
     plusIcon : {
       alignSelf: 'flex-end',

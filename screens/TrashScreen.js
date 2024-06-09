@@ -13,12 +13,11 @@ import { TrashNoteContext } from "../store/context/TrashContext";
 import { LabelContext } from  "../store/context/LabelContext";
 import bin from "../assets/bin.png";
 import { Feather } from "@expo/vector-icons";
-import { LABELS } from "../data/dummy-data";
 
 export function TrashScreen() {
   const { labels, addLabel, updateLabel, deleteLabel, searchLabels } = useContext(LabelContext);
   const trashNoteCtx = useContext(TrashNoteContext);
-  const trashNotes = trashNoteCtx.notes;
+  const trashNotes = trashNoteCtx.trashNotes;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -39,7 +38,7 @@ export function TrashScreen() {
   };
 
   const handleDelete = () => {
-    trashNoteCtx.deleteNote(selectedNote.id);
+  trashNoteCtx.deleteNotePer(selectedNote.id);
     closeModal();
   };
 

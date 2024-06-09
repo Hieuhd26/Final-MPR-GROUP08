@@ -72,11 +72,11 @@ export function HomeScreen({navigation}) {
        : <Text>Please add a new note</Text>}
        </View>
       <TouchableOpacity onPress={() => navigation.navigate('Add Note')}>
-      <Image source={plus} style={style.plusIcon}/>
+          <Image source={plus} style={style.plusIcon}/>
       </TouchableOpacity>
     
     </View>
-    
+  
   );
 }
 

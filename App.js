@@ -20,17 +20,12 @@ const Drawer = createDrawerNavigator();
 
  function Root()  {
   return (
-    <LabelProvider>
-        <TrashNoteProvider>
             <Drawer.Navigator initialRouteName="Home">
               <Drawer.Screen name="Home" component={HomeScreen} />
               <Drawer.Screen name="Trash" component={TrashScreen} />
               <Drawer.Screen name="Folders" component={FolderScreen} />
               <Drawer.Screen name="Labels" component={LabelsScreen} />
-              <Drawer.Screen name="Add Note" component={AddNewNote} />
             </Drawer.Navigator>
-        </TrashNoteProvider>
-      </LabelProvider>
   )
  }
 
@@ -39,14 +34,17 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Root" component={Root} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Edit Note" component={EditNoteScreen} />
-        <Stack.Screen name="Add Note" component={AddNewNote} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <LabelProvider>
+        <TrashNoteProvider>
+            <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name="Root" component={Root} options={{headerShown: false}}/>
+              <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+              <Stack.Screen name="Add Note" component={AddNewNote} />
+            </Stack.Navigator>
+            </NavigationContainer>
+        </TrashNoteProvider>
+      </LabelProvider>
       
     </>
   );

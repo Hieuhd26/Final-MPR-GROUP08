@@ -1,6 +1,7 @@
 import Label from "../models/label";
 import Note from "../models/note";
 
+
 export const LABELS = [
   new Label("l1", "React Native"),
   new Label("l2", "Final Exam"),
@@ -23,6 +24,7 @@ export const LABELS = [
   new Label("l19", "white hat"),
 ];
 
+
 export const COLORS = [
   "lightseagreen",
   "skyblue",
@@ -42,6 +44,7 @@ export const NOTES = [
     "Final Project Preparation",
     new Date("2024-5-10T12:30:00"),
     false
+
   ),
   new Note(
     "n2",
@@ -50,6 +53,7 @@ export const NOTES = [
     "For our mini project!",
     new Date("2024-5-10T12:35:00"),
     true
+
   ),
   new Note(
     "n3",
@@ -58,6 +62,7 @@ export const NOTES = [
     "Second note!",
     new Date("2024-4-20T15:30:00"),
     false
+
   ),
   new Note(
     "n4",
@@ -66,6 +71,7 @@ export const NOTES = [
     "Cooking",
     new Date("2024-4-20T12:25:00"),
     false
+
   ),
   
 ];
@@ -78,14 +84,16 @@ export const TRASH = [
     "Learn React Native Navigation",
     new Date("2024-5-10T14:30:00"),
     true
+
   ),
   new Note(
     "n6",
     null,
     ["l4", "l2", "l1"],
     "A simple note",
-    new Date("2024-5-10T14:35:00"),
+    new Date("2024-6-9T21:59:00"),
     false
+
   ),
   new Note(
     "n7",
@@ -94,6 +102,7 @@ export const TRASH = [
     "One more note",
     new Date("2024-4-20T15:30:00"),
     false
+
   ),
   new Note(
     "n8",
@@ -102,6 +111,7 @@ export const TRASH = [
     "One more note",
     new Date("2024-4-20T15:30:00"),
     false
+
   ),
   new Note(
     "n9",
@@ -110,5 +120,59 @@ export const TRASH = [
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
     false
+
+  ),
+  new Note(
+    "n91",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+
+  ),
+  new Note(
+    "n92",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+
+  ),
+  new Note(
+    "n93",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+
+  ),
+  new Note(
+    "n94",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+
+  ),
+  new Note(
+    "n95",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+  ),
+  new Note(
+    "n96",
+    COLORS[6],
+    ["l2",],
+    "Top 1 ninh giang",
+    new Date("2024-6-2T15:30:00"),
+    false
+
   ),
 ];

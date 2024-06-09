@@ -59,7 +59,7 @@ export function TrashScreen() {
         const label = labels.find((label) => label.id === labelId);
         return label ? label.label : null;
       })
-      .join(", ");
+      .filter((label) => label !== null);
 
     //date
     // date
@@ -85,19 +85,54 @@ export function TrashScreen() {
 
     return (
       <Pressable onPress={() => openModal(note)}>
-        <View
-          style={{ ...styles.noteItem, backgroundColor: note.color || "#fff" }}
-        >
-          <Text style={styles.noteText}>Content: {note.content}</Text>
-          <Text style={styles.noteText}>Labels: {noteLabels}</Text>
-          <Text style={styles.noteText}>{timeAgo}</Text>
-          <Text style={styles.noteText}>
-            {note.isBookmarked ? (
-              <Feather name="bookmark" size={24} color="red" />
-            ) : (
-              ""
-            )}
-          </Text>
+        <View style={{ ...styles.noteItem }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  backgroundColor: note.color,
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                }}
+              ></View>
+              <View style={{ width: 8 }} />
+              <Text style={styles.noteText}>{timeAgo}</Text>
+            </View>
+            <View style={styles.noteText}>
+              {note.isBookmarked ? (
+                <Feather name="bookmark" size={24} color="red" />
+              ) : (
+                ""
+              )}
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {noteLabels.map((label, index) => (
+              <View
+                key={index}
+                style={{
+                  backgroundColor: "gray",
+                  padding: 4,
+                  borderRadius: 4,
+                  marginRight: 4,
+                  marginBottom: 4,
+                }}
+              >
+                <Text style={{ color: "white" }}>{label}</Text>
+              </View>
+            ))}
+          </View>
+          <View>
+            <Text style={styles.noteText}>{note.content}</Text>
+          </View>
         </View>
       </Pressable>
     );
@@ -105,15 +140,19 @@ export function TrashScreen() {
 
   return (
     <View style={styles.screen}>
+      <View style={styles.buttonContainer}>
+        <View style={{ flex: 1 }}>
+          <Text>{trashNotes.length} notes in trash</Text>
+        </View>
+        <Button title="Restore All" onPress={trashNoteCtx.restoreAll} />
+        <View style={{ width: 8 }} />
+        <Button title="Empty Trash" onPress={trashNoteCtx.emptyTrash} />
+      </View>
       <FlatList
         data={trashNotes}
         renderItem={renderTrashNoteItem}
         keyExtractor={(item) => item.id}
       />
-      <View style={styles.buttonContainer}>
-        <Button title="Restore All" onPress={trashNoteCtx.restoreAll} />
-        <Button title="Empty Trash" onPress={trashNoteCtx.emptyTrash} />
-      </View>
 
       {selectedNote && (
         <Modal
@@ -143,7 +182,7 @@ export function TrashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -173,8 +212,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     marginTop: 10,
+    marginBottom:5
   },
   modalContainer: {
     flex: 1,

@@ -5,7 +5,8 @@ export default class Note {
     labelIds,
     content,
     updateAt,
-    isBookmarked
+    isBookmarked,
+    folderId 
   ) {
     this.id = id;
     this.color = color;
@@ -13,5 +14,6 @@ export default class Note {
     this.content = content;
     this.updateAt = updateAt;
     this.isBookmarked = isBookmarked;
+    this.folderId = folderId;
   }
 }

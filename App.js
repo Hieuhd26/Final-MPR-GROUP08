@@ -17,6 +17,7 @@ import { AddNewNote } from "./screens/AddNewNote";
 
 import { TrashNoteProvider } from "./store/context/NoteContext";
 import { LabelProvider } from "./store/context/LabelContext";
+import { FolderProvider } from "./store/context/FolderContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -68,21 +69,23 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <LabelProvider>
-        <TrashNoteProvider>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Root"
-                component={Root}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="Edit Note" component={EditNoteScreen} />
-              <Stack.Screen name="Add Note" component={AddNewNote} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </TrashNoteProvider>
-      </LabelProvider>
+      <FolderProvider>
+        <LabelProvider>
+          <TrashNoteProvider>
+            <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Root"
+                  component={Root}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+                <Stack.Screen name="Add Note" component={AddNewNote} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </TrashNoteProvider>
+        </LabelProvider>
+      </FolderProvider>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import Label from "../models/label";
 import Note from "../models/note";
-
+import Folder from "../models/folder";
 
 export const LABELS = [
   new Label("l1", "React Native"),
@@ -35,7 +35,11 @@ export const COLORS = [
   "orange",
   "palegreen",
 ];
-
+export const FOLDERS = [
+  new Folder("f1", "Dưa hấu không hạt"),
+  new Folder("f2", "Lạc không hạt"),
+  new Folder("f3", "Xoài thái"),
+];
 export const NOTES = [
   new Note(
     "n1",
@@ -43,7 +47,8 @@ export const NOTES = [
     ["l1", "l2"],
     "Final Project Preparation",
     new Date("2024-5-10T12:30:00"),
-    false
+    false,
+    "f2"
 
   ),
   new Note(
@@ -52,7 +57,8 @@ export const NOTES = [
     ["l3"],
     "For our mini project!",
     new Date("2024-5-10T12:35:00"),
-    true
+    true,
+    "f3"
 
   ),
   new Note(
@@ -61,7 +67,8 @@ export const NOTES = [
     ["l2"],
     "Second note!",
     new Date("2024-4-20T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -70,7 +77,8 @@ export const NOTES = [
     ["l1"],
     "Cooking",
     new Date("2024-4-20T12:25:00"),
-    false
+    false,
+    "f1"
 
   ),
   
@@ -83,7 +91,8 @@ export const TRASH = [
     ["l4"],
     "Learn React Native Navigation",
     new Date("2024-5-10T14:30:00"),
-    true
+    true,
+    "f1"
 
   ),
   new Note(
@@ -92,7 +101,8 @@ export const TRASH = [
     ["l4", "l2", "l1"],
     "A simple note",
     new Date("2024-6-9T21:59:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -101,7 +111,8 @@ export const TRASH = [
     ["l1", "l2", "l3", "l4"],
     "One more note",
     new Date("2024-4-20T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -110,7 +121,8 @@ export const TRASH = [
     ["l1", "l2", "l3", "l4"],
     "One more note",
     new Date("2024-4-20T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -119,7 +131,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -128,7 +141,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -137,7 +151,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -146,7 +161,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -155,7 +171,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
   new Note(
@@ -164,7 +181,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
   ),
   new Note(
     "n96",
@@ -172,7 +190,8 @@ export const TRASH = [
     ["l2",],
     "Top 1 ninh giang",
     new Date("2024-6-2T15:30:00"),
-    false
+    false,
+    "f1"
 
   ),
 ];

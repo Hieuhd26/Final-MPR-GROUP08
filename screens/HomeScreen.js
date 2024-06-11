@@ -1,18 +1,30 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView, TextInput } from "react-native";
 import { TrashNoteContext } from "../store/context/NoteContext";
 import { COLORS } from "../data/dummy-data";
 import { LabelContext } from  "../store/context/LabelContext";
-import { useState,useContext } from "react";
+import { useState,useContext, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons"
 
 import plus from "../assets/plus.png";
 
 export function HomeScreen({navigation}) {
-  const {notes} = useContext(TrashNoteContext);
+  const {notes, searchNote} = useContext(TrashNoteContext);
   const { labels} = useContext(LabelContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState(notes);
 
+  useEffect(() => {
+    if (searchQuery === "") {
+      setSearchResults(notes);
+    } else {
+      setSearchResults(searchNote(searchQuery));
+    }
+  }, [searchQuery, notes]);
 
-  
+  const handleSearch = (text) => {
+    setSearchQuery(text);
+  };
+
   const renderNotes = ({ item }) => {
     const noteLabels = item.labelIds
       .map((labelId) => {
@@ -90,11 +102,23 @@ export function HomeScreen({navigation}) {
 
   return (
     <View>
+      <View style ={style.search}>
+        <FontAwesome name="search" size={20} color="#d3d3d3" />
+        <TextInput
+          style ={style.searchText}
+          value={searchQuery}
+          placeholder="Search or create labels..."
+          onChangeText={handleSearch}
+        />
+        
+      </View>
       <View style={style.container}>
         <Text style={style.length}>{notes.length} notes</Text>
-        {(notes.length !== 0) ? <FlatList keyExtractor={(item) => item.id} data={notes} renderItem={renderNotes}/>
+        {(notes.length !== 0) ? 
+          <FlatList keyExtractor={(item) => item.id} data={searchResults} renderItem={renderNotes}/>
         : <Text>Please add a new note</Text>}
       </View>
+
       <TouchableOpacity onPress={() => navigation.navigate('Add Note')}>
         <Image source={plus} style={style.plusIcon}/>
       </TouchableOpacity>
@@ -108,7 +132,7 @@ const style = StyleSheet.create({
   container: {
     marginLeft: 20,
     marginTop: 30,
-    marginBottom: 200,
+    marginBottom: 300,
     marginRight: 20,
   },
   length: {
@@ -142,12 +166,25 @@ const style = StyleSheet.create({
   plusIcon : {
     alignSelf: 'flex-end',
     position: 'absolute',
-    bottom: 130,
+    bottom: 230,
     right:20,
     height: 50,
     width: 50
     
   },
+  search : {
+    marginTop: 10,
+    flexDirection: "row",
+    marginLeft: 20,
+    marginRight: 20,
+    borderStyle: "solid",
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+    padding: 10,
+  },
+  searchText : {
+    marginLeft: 10
+  }
   
   
 });

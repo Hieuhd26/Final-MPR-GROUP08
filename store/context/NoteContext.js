@@ -6,6 +6,7 @@ export const TrashNoteContext = createContext({
   notes: [],
   trashNotes: [],
   addNote : (content) => {},
+  searchNote: (query) => [],
   restoreNote: (id) => {},
   deleteNote: (id) => {},
   deleteNotePer: (id) => {},
@@ -22,7 +23,9 @@ export function TrashNoteProvider({ children }) {
     setNotes((prevNotes) => [...prevNotes, newNote]);
   }
 
-
+  function searchNote (query){
+    return notesList.filter((note) => note.content.toLowerCase().includes(query.toLowerCase()));
+  }
 
   function restoreNoteHandler(id) {
     setTrashNotes((currentTrashNotes) => {
@@ -66,6 +69,7 @@ export function TrashNoteProvider({ children }) {
     notes: notesList,
     trashNotes,
     addNote : addNewNote,
+    searchNote : searchNote,
     restoreNote: restoreNoteHandler,
     deleteNote: deleteNoteHandler,
     deleteNotePer: deleteNotePermanentlyHandler,

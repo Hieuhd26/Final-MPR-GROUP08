@@ -3,6 +3,7 @@ import { TrashNoteContext } from "../store/context/NoteContext";
 import { COLORS } from "../data/dummy-data";
 import { LabelContext } from  "../store/context/LabelContext";
 import { useState,useContext } from "react";
+import { FontAwesome } from "@expo/vector-icons"
 
 import plus from "../assets/plus.png";
 
@@ -13,17 +14,14 @@ export function HomeScreen({navigation}) {
 
   
   const renderNotes = ({ item }) => {
-    const noteLabels = item.labelIds;
-    if (noteLabels === null){
-        return ""
-    } else {
-      noteLabels.map((labelId) => {
+    const noteLabels = item.labelIds
+      .map((labelId) => {
         const label = labels.find((label) => label.id === labelId);
-        return label ? label.label : "";
+        return label ? label.label : null;
         
       })
-      .join(" | ");
-    }
+      .filter((label) => label !== null);
+    
       
     const now = new Date();
     const createAt = new Date(item.updateAt);
@@ -63,8 +61,28 @@ export function HomeScreen({navigation}) {
           >  
           </View>
           <Text style={style.noteTime}> {timeAgo}</Text>
+          {item.isBookmarked ? (
+                <FontAwesome name="bookmark" size={20} color="gray" marginLeft="auto" />
+              ) : (
+                ""
+              )}
         </View>
-        <Text style={style.noteLabels}>{noteLabels}</Text>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {noteLabels.map((label, index) => (
+              <View
+                key={index}
+                style={{
+                  backgroundColor: "#F9F4F1",
+                  padding: 4,
+                  borderRadius: 4,
+                  marginRight: 4,
+                  marginBottom: 7,
+                }}
+              >
+                <Text style={{ color: "#343434" }}>{label}</Text>
+              </View>
+            ))}
+          </View>
         <Text>{item.content}</Text>
       </View>
     );

@@ -18,7 +18,7 @@ export function TrashNoteProvider({ children }) {
   const [notesList, setNotes] = useState(NOTES);
 
   function addNewNote (content) {
-    const newNote = new Note(Math.random().toString(), null,null,content, new Date(),null);
+    const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null);
     setNotes((prevNotes) => [...prevNotes, newNote]);
   }
 

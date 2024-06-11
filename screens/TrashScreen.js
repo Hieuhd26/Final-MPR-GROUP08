@@ -13,6 +13,7 @@ import { TrashNoteContext } from "../store/context/NoteContext";
 import { LabelContext } from "../store/context/LabelContext";
 import bin from "../assets/bin.png";
 import { Feather } from "@expo/vector-icons";
+import CustomButton from "../components/Button";
 
 export function TrashScreen() {
   const { labels, addLabel, updateLabel, deleteLabel, searchLabels } =

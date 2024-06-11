@@ -1,33 +1,41 @@
-import { useContext } from "react";
-import { View, Text,  StyleSheet,TouchableOpacity, Image } from "react-native";
+import { useState,useContext } from "react";
+import { View, Text,  StyleSheet,TouchableOpacity, Image, TextInput } from "react-native";
 import check from "../assets/check.png"
-
-import { TrashNoteContext } from "../store/context/TrashContext";
-import { TextInput } from "react-native-gesture-handler";
+import { TrashNoteContext } from "../store/context/NoteContext";
 
 export function AddNewNote() {
-  const trashNoteCtx = useContext(TrashNoteContext);
+  const {notes, addNote} = useContext(TrashNoteContext);
+  const [content, setContent] = useState("");
+
+  const handleContent = (text) =>{
+    setContent(text);
+  }
+
+  const handleNote = () => {
+    if (!content.trim()) return;
+    addNote(content);
+    setContent("");
+  }
   return (
     <View>
-      <TextInput style = {style.input} multiline placeholder="Enter note content" />
-      <TouchableOpacity>
-      <Image source={check} style={style.plusIcon}/>
+      <TextInput style = {style.input} multiline placeholder="Enter note content" value={content} onChangeText={handleContent}/>
+      <TouchableOpacity onPress={handleNote}>
+        <Image source={check} style={style.plusIcon}/>
       </TouchableOpacity>
-    </View>
+    </View> 
   );
 }
 const style = StyleSheet.create({
     input: {
-        height: 450,
+        height: 250,
         marginLeft: 20,
         marginTop: 30,
-        marginBottom: 200,
         marginRight: 20,
     },
     plusIcon : {
       alignSelf: 'flex-end',
       position: 'absolute',
-      top: 200,
+      top: 80,
       right:20,
       height: 50,
       width: 50

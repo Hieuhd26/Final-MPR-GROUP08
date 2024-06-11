@@ -13,20 +13,54 @@ import { TrashScreen } from "./screens/TrashScreen";
 import { FolderScreen } from "./screens/FoldersScreen";
 import { LabelsScreen } from "./screens/LabelsScreen";
 import { EditNoteScreen } from "./screens/EditNoteScreen";
-
-import { TrashNoteProvider } from "./store/context/TrashContext";
+import { AddNewNote } from "./screens/AddNewNote";
+   
+import { TrashNoteProvider } from "./store/context/NoteContext";
 import { LabelProvider } from "./store/context/LabelContext";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function HomeStackNavigator() {
+function Root() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="EditNote" component={EditNoteScreen} />
-      {/*thêm vào đang bí  */}
-    </Stack.Navigator>
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Entypo name="home" size={24} color="black" />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Trash"
+        component={TrashScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Entypo name="trash" size={24} color="black" />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Folders"
+        component={FolderScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Entypo name="folder" size={24} color="black" />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Labels"
+        component={LabelsScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <MaterialIcons name="label" size={24} color="black" />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
   );
 }
 
@@ -37,16 +71,18 @@ export default function App() {
       <LabelProvider>
         <TrashNoteProvider>
           <NavigationContainer>
-            <Drawer.Navigator initialRouteName="Home">
-              <Drawer.Screen name="Home" component={HomeScreen} />
-              <Drawer.Screen name="Trash" component={TrashScreen} />
-              <Drawer.Screen name="Folders" component={FolderScreen} />
-              <Drawer.Screen name="Labels" component={LabelsScreen} />
-            </Drawer.Navigator>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Root"
+                component={Root}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+              <Stack.Screen name="Add Note" component={AddNewNote} />
+            </Stack.Navigator>
           </NavigationContainer>
         </TrashNoteProvider>
       </LabelProvider>
-      
     </>
   );
 }

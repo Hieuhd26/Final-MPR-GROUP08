@@ -1,9 +1,11 @@
 import { createContext, useState } from "react";
 import { TRASH, NOTES } from "../../data/dummy-data";
+import Note from '../../models/note';
 
 export const TrashNoteContext = createContext({
   notes: [],
   trashNotes: [],
+  addNote : (content) => {},
   restoreNote: (id) => {},
   deleteNote: (id) => {},
   deleteNotePer: (id) => {},
@@ -13,7 +15,15 @@ export const TrashNoteContext = createContext({
 
 export function TrashNoteProvider({ children }) {
   const [trashNotes, setTrashNotes] = useState(TRASH);
-  const [notes, setNotes] = useState(NOTES);
+  const [notesList, setNotes] = useState(NOTES);
+
+  function addNewNote (content) {
+    const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null,null);
+    setNotes((prevNotes) => [...prevNotes, newNote]);
+  }
+
+
+
   function restoreNoteHandler(id) {
     setTrashNotes((currentTrashNotes) => {
       const noteToRestore = currentTrashNotes.find((note) => note.id === id);
@@ -53,12 +63,12 @@ export function TrashNoteProvider({ children }) {
     setTrashNotes([]);
   }
   const value = {
-    notes,
-    trashNotes,
+    notes: notesList,
+    trashNotes:trashNotes,
+    addNote : addNewNote,
     restoreNote: restoreNoteHandler,
     deleteNote: deleteNoteHandler,
     deleteNotePer: deleteNotePermanentlyHandler,
-
     restoreAll: restoreAllHandler,
     emptyTrash: emptyTrashHandler,
   };

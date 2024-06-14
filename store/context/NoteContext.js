@@ -2,11 +2,16 @@ import { createContext, useState } from "react";
 import { TRASH, NOTES } from "../../data/dummy-data";
 import Note from '../../models/note';
 
+
 export const TrashNoteContext = createContext({
   notes: [],
   trashNotes: [],
   addNote : (content) => {},
+  updateNote: (id, content) => {},
+  updateColor: (id, color) => {},
   searchNote: (query) => [],
+  addBookmark : (id) => {},
+  removeBookmark : (id) => {},
   restoreNote: (id) => {},
   deleteNote: (id) => {},
   deleteNotePer: (id) => {},
@@ -21,6 +26,26 @@ export function TrashNoteProvider({ children }) {
   function addNewNote (content) {
     const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null);
     setNotes((prevNotes) => [...prevNotes, newNote]);
+  }
+  function updateColor(id, color) {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === id ? { ...note, color: color } : note))
+    );
+  }
+  function updateNote(id, content) {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === id ? { ...note, content: content } : note))
+    );
+  }
+  function addBookmark(id) {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === id ? { ...note, isBookmarked: true } : note))
+    );
+  }
+  function removeBookmark(id) {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === id ? { ...note, isBookmarked: false } : note))
+    );
   }
 
   function searchNote (query){
@@ -69,6 +94,10 @@ export function TrashNoteProvider({ children }) {
     notes: notesList,
     trashNotes,
     addNote : addNewNote,
+    updateNote : updateNote,
+    updateColor : updateColor,
+    addBookmark: addBookmark,
+    removeBookmark: removeBookmark,
     searchNote : searchNote,
     restoreNote: restoreNoteHandler,
     deleteNote: deleteNoteHandler,

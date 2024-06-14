@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView, TextInput, Pressable } from "react-native";
 import { TrashNoteContext } from "../store/context/NoteContext";
 import { COLORS } from "../data/dummy-data";
 import { LabelContext } from  "../store/context/LabelContext";
@@ -24,6 +24,8 @@ export function HomeScreen({navigation}) {
   const handleSearch = (text) => {
     setSearchQuery(text);
   };
+  
+
 
   const renderNotes = ({ item }) => {
     const noteLabels = item.labelIds
@@ -55,48 +57,67 @@ export function HomeScreen({navigation}) {
       timeAgo = `${seconds} second${seconds > 1 ? "s" : ""} ago`;
     }
     
+    function pressHandler() {
+      navigation.navigate('Note', {
+        time: timeAgo,
+        noteId: item.id,
+        catList : noteLabels,
+        content : item.content,
+        bookmark: item.isBookmarked,
+        color: item.color
+      });
+    }
     
     return (
-      <View style={style.note}>
-        <View style={{flexDirection:"row"}}>
-          <View
-            style={{
-              backgroundColor: item.color,
-              color: item.color,
-              width:3,
-              height:3,
-              padding: 5,
-              borderRadius: 20,
-              overflow: "hidden",
-              marginRight: 10
-            }}
-          >  
+      <Pressable 
+        android_ripple={{ color: '#ccc' }}
+        style={({ pressed }) => [
+          style.button,
+          pressed ? style.buttonPressed : null,
+        ]}    
+        onPress={pressHandler}>
+        <View style={style.note}>
+          <View style={{flexDirection:"row"}}>
+            <View
+              style={{
+                backgroundColor: item.color,
+                color: item.color,
+                width:3,
+                height:3,
+                padding: 5,
+                borderRadius: 20,
+                overflow: "hidden",
+                marginRight: 10
+              }}
+            >  
+            </View>
+            <Text style={style.noteTime}> {timeAgo}</Text>
+            {item.isBookmarked ? (
+                  <FontAwesome name="bookmark" size={20} color="gray" marginLeft="auto" />
+                ) : (
+                  ""
+                )}
           </View>
-          <Text style={style.noteTime}> {timeAgo}</Text>
-          {item.isBookmarked ? (
-                <FontAwesome name="bookmark" size={20} color="gray" marginLeft="auto" />
-              ) : (
-                ""
-              )}
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+              {noteLabels.map((label, index) => (
+                <View
+                  key={index}
+                  style={{
+                    backgroundColor: "#F9F4F1",
+                    padding: 4,
+                    borderRadius: 4,
+                    marginRight: 4,
+                    marginBottom: 7,
+                  }}
+                >
+                  <Text style={{ color: "#343434" }}>{label}</Text>
+                </View>
+              ))}
+          </View>
+          <Text>{item.content}</Text>
         </View>
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {noteLabels.map((label, index) => (
-              <View
-                key={index}
-                style={{
-                  backgroundColor: "#F9F4F1",
-                  padding: 4,
-                  borderRadius: 4,
-                  marginRight: 4,
-                  marginBottom: 7,
-                }}
-              >
-                <Text style={{ color: "#343434" }}>{label}</Text>
-              </View>
-            ))}
-          </View>
-        <Text>{item.content}</Text>
-      </View>
+      </Pressable>
+      
     );
   };
 
@@ -184,7 +205,13 @@ const style = StyleSheet.create({
   },
   searchText : {
     marginLeft: 10
-  }
+  },
+  button: {
+    flex: 1,
+  },
+  buttonPressed: {
+    opacity: 0.5,
+  },
   
   
 });

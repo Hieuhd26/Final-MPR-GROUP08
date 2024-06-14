@@ -6,7 +6,7 @@ export const FolderContext = createContext({
   folders: [],
   addFolder: (name) => {},
   deleteFolder: (id) => {},
-  updateFolder: (id, name) => {},
+
 });
 
 export function FolderProvider({ children }) {
@@ -21,18 +21,11 @@ export function FolderProvider({ children }) {
       currentFolders.filter((folder) => folder.id !== id)
     );
   }
-  function updateFolderHandler(id, newName) {
-    setFolders((currentFolders) =>
-      currentFolders.map((folder) =>
-        folder.id === id ? { ...folder, name: newName } : folder
-      )
-    );
-  }
+
   const value = {
     folders,
     addFolder: addFolderHandler,
     deleteFolder: deleteFolderHandler,
-    updateFolder: updateFolderHandler,
   };
   return (
     <FolderContext.Provider value={value}>

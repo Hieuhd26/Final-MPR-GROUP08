@@ -120,14 +120,14 @@ export function TrashScreen() {
               <View
                 key={index}
                 style={{
-                  backgroundColor: "gray",
+                  backgroundColor: "#F9F4F1",
                   padding: 4,
                   borderRadius: 4,
                   marginRight: 4,
                   marginBottom: 4,
                 }}
               >
-                <Text style={{ color: "white" }}>{label}</Text>
+                <Text style={{ color: "black" }}>{label}</Text>
               </View>
             ))}
           </View>
@@ -142,12 +142,24 @@ export function TrashScreen() {
   return (
     <View style={styles.screen}>
       <View style={styles.buttonContainer}>
-        <View style={{ flex: 1 }}>
-          <Text>{trashNotes.length} notes in trash</Text>
+        <View style={{ flex: 1, }}>
+          <Text style={{color:'red', fontSize:14}}>{trashNotes.length} notes</Text>
         </View>
-        <Button title="Restore All" onPress={trashNoteCtx.restoreAll} />
+        {/* <Button title="Restore All" onPress={trashNoteCtx.restoreAll} /> */}
+        <CustomButton
+          title="Restore All"
+          backgroundColor="#007bff"
+          textColor="#fff"
+          onPress={trashNoteCtx.restoreAll}
+        />
         <View style={{ width: 8 }} />
-        <Button title="Empty Trash" onPress={trashNoteCtx.emptyTrash} />
+        {/* <Button title="Empty Trash" onPress={trashNoteCtx.emptyTrash} /> */}
+        <CustomButton
+          title="Empty Trash"
+          backgroundColor="#dc3545"
+          textColor="#fff"
+          onPress={trashNoteCtx.emptyTrash}
+        />
       </View>
       <FlatList
         data={trashNotes}
@@ -168,9 +180,24 @@ export function TrashScreen() {
                 Content: {selectedNote.content}
               </Text>
               <View style={styles.modalButtonContainer}>
-                <Button title="Restore" onPress={handleRestore} />
-                <Button title="Delete" onPress={handleDelete} />
-                <Button title="Cancel" onPress={closeModal} />
+              <CustomButton
+                  title="Restore"
+                  backgroundColor="#28a745"
+                  textColor="#fff"
+                  onPress={handleRestore}
+                />
+                <CustomButton
+                  title="Delete"
+                  backgroundColor="#dc3545"
+                  textColor="#fff"
+                  onPress={handleDelete}
+                />
+                <CustomButton
+                  title="Cancel"
+                  backgroundColor="#6c757d"
+                  textColor="#fff"
+                  onPress={closeModal}
+                />
               </View>
             </View>
           </View>
@@ -204,9 +231,7 @@ const styles = StyleSheet.create({
   noteItem: {
     padding: 10,
     marginVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    backgroundColor:'white'
   },
   noteText: {
     fontSize: 16,

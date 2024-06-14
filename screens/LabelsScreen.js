@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { LabelContext } from  "../store/context/LabelContext";
+import CustomButton from "../components/Button";
 
 export function LabelsScreen() {
   const { labels, addLabel, updateLabel, deleteLabel, searchLabels } = useContext(LabelContext);
@@ -33,6 +34,11 @@ export function LabelsScreen() {
 
   const handleCreateLabel = () => {
     if (!searchQuery.trim()) return;
+    const labelExists = labels.some(label => label.label.toLowerCase() === searchQuery.toLowerCase());
+    if (labelExists) {
+      Alert.alert("Label already exists", "Please enter a different label name.");
+      return;
+    }
     addLabel(searchQuery);
     setSearchQuery("");
   };
@@ -75,19 +81,19 @@ export function LabelsScreen() {
               value={labelName}
               onChangeText={setLabelName}
             />
-            <View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
+             <View style={styles.modalButtonContainer}>
+              <CustomButton
+                title="Save"
+                backgroundColor="#28a745"
+                textColor="#fff"
                 onPress={handleSave}
-              >
-                <Text style={styles.buttonText}>Save</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
+              />
+              <CustomButton
+                title="Delete"
+                backgroundColor="#dc3545"
+                textColor="#fff"
                 onPress={handleDelete}
-              >
-                <Text style={styles.buttonText}>Delete</Text>
-              </Pressable>
+              />
             </View>
           </View>
         </View>
@@ -163,12 +169,19 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 16,
   },
+  modalButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    //width: "100%",
+    marginTop: 20,
+  },
   header: {
     marginBottom: 10,
   },
   totalLabelsText: {
     fontSize: 18,
     fontWeight: "bold",
+    color:'red'
   },
   modalContainer: {
     flex: 1,

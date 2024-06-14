@@ -8,12 +8,13 @@ import {
   ScrollView,
 } from "react-native";
 import { COLORS } from "../data/dummy-data";
-import { useState, useContext, useEffect } from "react";
+import { LabelContext } from  "../store/context/LabelContext";
+import { useState,useContext } from "react";
+import { FontAwesome } from "@expo/vector-icons"
 
 import plus from "../assets/plus.png";
 
 import { TrashNoteContext } from "../store/context/NoteContext";
-import { LabelContext } from "../store/context/LabelContext";
 import { FolderContext } from "../store/context/FolderContext";
 
 export function HomeScreen({ navigation }) {
@@ -23,13 +24,14 @@ export function HomeScreen({ navigation }) {
 
   const renderNotes = ({ item }) => {
     const noteLabels = item.labelIds
-    .map((labelId) => {
-      const label = labels.find((label) => label.id === labelId);
-      return label ? label.label : "";
-    })
-    .join(" | ");
+      .map((labelId) => {
+        const label = labels.find((label) => label.id === labelId);
+        return label ? label.label : null;
+        
+      })
+      .filter((label) => label !== null);
     
-
+      
     const now = new Date();
     const createAt = new Date(item.updateAt);
     const elapsedTime = now - createAt;
@@ -53,22 +55,42 @@ export function HomeScreen({ navigation }) {
 
     return (
       <View style={style.note}>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row",alignItems: "center"  }}>
           <View
             style={{
               backgroundColor: item.color,
               color: item.color,
-              width: 3,
-              height: 3,
-              padding: 5,
-              borderRadius: 20,
+              width: 10,
+              height: 10,
+              borderRadius:5,
               overflow: "hidden",
               marginRight: 10,
             }}
           ></View>
           <Text style={style.noteTime}> {timeAgo}</Text>
+          
+          {item.isBookmarked ? (
+                <FontAwesome name="bookmark" size={20} color="pink" marginLeft="auto" />
+              ) : (
+                ""
+              )}
         </View>
-        <Text style={style.noteLabels}>{noteLabels}</Text>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {noteLabels.map((label, index) => (
+              <View
+                key={index}
+                style={{
+                  backgroundColor: "#F9F4F1",
+                  padding: 4,
+                  borderRadius: 4,
+                  marginRight: 4,
+                  marginBottom: 7,
+                }}
+              >
+                <Text style={{ color: "#343434" }}>{label}</Text>
+              </View>
+            ))}
+          </View>
         <Text>{item.content}</Text>
       </View>
     );
@@ -122,7 +144,7 @@ const style = StyleSheet.create({
   },
   noteTime: {
     color: "#d3d3d3",
-    marginBottom: 5,
+   // marginBottom: 5,
     fontSize: 14,
   },
   noteLabels: {

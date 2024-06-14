@@ -1,25 +1,32 @@
-import React from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { Pressable, Text, StyleSheet } from "react-native";
 
-const CustomButton = ({ title, onPress, style, textStyle }) => {
+const CustomButton = ({ onPress, title, backgroundColor, textColor }) => {
   return (
-    <Pressable style={[styles.button, style]} onPress={onPress}>
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+    <Pressable
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed ? "#d3d3d3" : backgroundColor,
+        },
+        styles.button,
+      ]}
+      onPress={onPress}
+    >
+      <Text style={[styles.text, { color: textColor }]}>{title}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007BFF',
     padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    margin: 5,
+    borderRadius: 8,
+    alignItems: "center",
+    marginHorizontal: 5,
   },
   text: {
-    color: '#FFFFFF',
     fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

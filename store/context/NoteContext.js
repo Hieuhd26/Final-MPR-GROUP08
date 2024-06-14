@@ -26,7 +26,7 @@ export function TrashNoteProvider({ children }) {
   const [notesList, setNotes] = useState(NOTES);
 
   function addNewNote (content) {
-    const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null);
+    const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null,null);
     setNotes((prevNotes) => [...prevNotes, newNote]);
   }
   
@@ -119,7 +119,7 @@ export function TrashNoteProvider({ children }) {
   }
   const value = {
     notes: notesList,
-    trashNotes,
+    trashNotes:trashNotes,
     addNote : addNewNote,
     updateNote : updateNote,
     removeLabel:removeLabel,

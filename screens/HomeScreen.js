@@ -1,10 +1,21 @@
+
 import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView, TextInput, Pressable } from "react-native";
 import { TrashNoteContext } from "../store/context/NoteContext";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  FlatList,
+  ScrollView,
+} from "react-native";
+
 import { COLORS } from "../data/dummy-data";
 import { LabelContext } from  "../store/context/LabelContext";
 import { useState,useContext, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons"
-
+import { FolderContext } from "../store/context/FolderContext";
 import plus from "../assets/plus.png";
 
 export function HomeScreen({navigation}) {
@@ -20,11 +31,6 @@ export function HomeScreen({navigation}) {
       setSearchResults(searchNote(searchQuery));
     }
   }, [searchQuery, notes]);
-
-  const handleSearch = (text) => {
-    setSearchQuery(text);
-  };
-  
 
 
   const renderNotes = ({ item }) => {
@@ -53,8 +59,10 @@ export function HomeScreen({navigation}) {
     } else if (minutes > 0) {
       timeAgo = `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     } else {
+  
       timeAgo = `${seconds} second${seconds > 1 ? "s" : ""} ago`;
     }
+
     
     function pressHandler() {
       navigation.navigate('Note', {
@@ -88,7 +96,7 @@ export function HomeScreen({navigation}) {
                 overflow: "hidden",
                 marginRight: 10
               }}
-            >  
+            />  
             </View>
             <Text style={style.noteTime}> {timeAgo}</Text>
             {item.isBookmarked ? (
@@ -114,7 +122,6 @@ export function HomeScreen({navigation}) {
               ))}
           </View>
           <Text>{item.content}</Text>
-        </View>
       </Pressable>
       
     );
@@ -130,21 +137,27 @@ export function HomeScreen({navigation}) {
           placeholder="Search or create labels..."
           onChangeText={handleSearch}
         />
-        
       </View>
       <View style={style.container}>
         <Text style={style.length}>{notes.length} notes</Text>
+
         {(notes.length !== 0) ? 
           <FlatList keyExtractor={(item) => item.id} data={searchResults} renderItem={renderNotes}/>
         : <Text>Please add a new note</Text>}
       </View>
-
-      <TouchableOpacity onPress={() => navigation.navigate('Add Note')}>
-        <Image source={plus} style={style.plusIcon}/>
+        {notes.length !== 0 ? (
+          <FlatList
+            keyExtractor={(item) => item.id}
+            data={notes}
+            renderItem={renderNotes}
+          />
+        ) : (
+          <Text>Please add a new note</Text>
+        )}
+      <TouchableOpacity onPress={() => navigation.navigate("Add Note")}>
+        <Image source={plus} style={style.plusIcon} />
       </TouchableOpacity>
-    
     </View>
-    
   );
 }
 
@@ -175,23 +188,23 @@ const style = StyleSheet.create({
   },
   noteTime: {
     color: "#d3d3d3",
-    marginBottom: 5,
-    fontSize: 14
+   // marginBottom: 5,
+    fontSize: 14,
   },
-  noteLabels:{
-    marginBottom:10,
+  noteLabels: {
+    marginBottom: 10,
     backgroundColor: "#F9F4F1",
-    alignSelf:"flex-start",
+    alignSelf: "flex-start",
   },
-  plusIcon : {
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    bottom: 230,
-    right:20,
+  plusIcon: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: 130,
+    right: 20,
     height: 50,
-    width: 50
-    
+    width: 50,
   },
+
   search : {
     marginTop: 10,
     flexDirection: "row",
@@ -212,5 +225,7 @@ const style = StyleSheet.create({
     opacity: 0.5,
   },
   
-  
 });
+
+
+

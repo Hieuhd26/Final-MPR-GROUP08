@@ -15,9 +15,12 @@ import { LabelsScreen } from "./screens/LabelsScreen";
 import { AddNewNote } from "./screens/AddNewNote";
 import { UpdateNote } from "./screens/UpdateNote";
 import { ManageLabel } from "./screens/ManageLabel";
-   
+
+import { NoteFolderScreen } from "./screens/NoteFolderScreen";
+
 import { TrashNoteProvider } from "./store/context/NoteContext";
 import { LabelProvider } from "./store/context/LabelContext";
+import { FolderProvider } from "./store/context/FolderContext";
 
 
 const Stack = createNativeStackNavigator();
@@ -72,22 +75,24 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <LabelProvider>
-        <TrashNoteProvider>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Root"
-                component={Root}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="Add Note" component={AddNewNote} />
-              <Stack.Screen name="Note" component={UpdateNote} />
-              <Stack.Screen name="Manage Labels" component={ManageLabel} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </TrashNoteProvider>
-      </LabelProvider>
+      <FolderProvider>
+        <LabelProvider>
+          <TrashNoteProvider>
+            <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Root"
+                  component={Root}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+                <Stack.Screen name="Add Note" component={AddNewNote} />
+                <Stack.Screen name="Note Folder" component={NoteFolderScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </TrashNoteProvider>
+        </LabelProvider>
+      </FolderProvider>
     </>
   );
 }

@@ -162,6 +162,7 @@ export function TrashScreen() {
         />
       </View>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={trashNotes}
         renderItem={renderTrashNoteItem}
         keyExtractor={(item) => item.id}

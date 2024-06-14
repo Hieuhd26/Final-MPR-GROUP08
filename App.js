@@ -85,7 +85,7 @@ export default function App() {
                   component={Root}
                   options={{ headerShown: false }}
                 />
-                <Stack.Screen name="Edit Note" component={EditNoteScreen} />
+                <Stack.Screen name="Note" component={UpdateNote} />
                 <Stack.Screen name="Add Note" component={AddNewNote} />
                 <Stack.Screen name="Note Folder" component={NoteFolderScreen} />
               </Stack.Navigator>

@@ -1,5 +1,4 @@
 
-import { View, Text, TouchableOpacity, StyleSheet, Image,FlatList, ScrollView, TextInput, Pressable } from "react-native";
 import { TrashNoteContext } from "../store/context/NoteContext";
 import {
   View,
@@ -9,6 +8,8 @@ import {
   Image,
   FlatList,
   ScrollView,
+  TextInput,
+  Pressable
 } from "react-native";
 
 import { COLORS } from "../data/dummy-data";
@@ -31,7 +32,9 @@ export function HomeScreen({navigation}) {
       setSearchResults(searchNote(searchQuery));
     }
   }, [searchQuery, notes]);
-
+  const handleSearch = (text) => {
+    setSearchQuery(text);
+  };
 
   const renderNotes = ({ item }) => {
     const noteLabels = item.labelIds
@@ -97,14 +100,13 @@ export function HomeScreen({navigation}) {
                 marginRight: 10
               }}
             />  
-            </View>
             <Text style={style.noteTime}> {timeAgo}</Text>
             {item.isBookmarked ? (
                   <FontAwesome name="bookmark" size={20} color="gray" marginLeft="auto" />
                 ) : (
                   ""
-                )}
-          </View>
+            )}
+          </View> 
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
               {noteLabels.map((label, index) => (
                 <View
@@ -122,6 +124,7 @@ export function HomeScreen({navigation}) {
               ))}
           </View>
           <Text>{item.content}</Text>
+          </View>
       </Pressable>
       
     );
@@ -145,15 +148,6 @@ export function HomeScreen({navigation}) {
           <FlatList keyExtractor={(item) => item.id} data={searchResults} renderItem={renderNotes}/>
         : <Text>Please add a new note</Text>}
       </View>
-        {notes.length !== 0 ? (
-          <FlatList
-            keyExtractor={(item) => item.id}
-            data={notes}
-            renderItem={renderNotes}
-          />
-        ) : (
-          <Text>Please add a new note</Text>
-        )}
       <TouchableOpacity onPress={() => navigation.navigate("Add Note")}>
         <Image source={plus} style={style.plusIcon} />
       </TouchableOpacity>
@@ -165,8 +159,9 @@ const style = StyleSheet.create({
   container: {
     marginLeft: 20,
     marginTop: 30,
-    marginBottom: 300,
+    marginBottom: 200,
     marginRight: 20,
+    height: 600
   },
   length: {
     fontWeight: "700",
@@ -176,7 +171,7 @@ const style = StyleSheet.create({
   },
   note: {
     backgroundColor: "white",
-    padding: 20,
+    padding: 10,
     marginTop: 20,
     shadowColor: "#000000",
     shadowOpacity: 0.2,
@@ -188,7 +183,7 @@ const style = StyleSheet.create({
   },
   noteTime: {
     color: "#d3d3d3",
-   // marginBottom: 5,
+    //marginBottom: 5,
     fontSize: 14,
   },
   noteLabels: {

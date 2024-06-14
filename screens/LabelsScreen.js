@@ -117,6 +117,7 @@ export function LabelsScreen() {
         <Text style={styles.createLabelText}>Create label `{searchQuery}`</Text>
       </Pressable>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={searchResults}
         renderItem={({ item }) => (
           <Pressable onPress={() => handleLabelPress(item)}>

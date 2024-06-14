@@ -30,14 +30,18 @@ export const UpdateNote = ({route, navigation}) => {
 
     const renderColor = ({item}) =>{
         return (
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => {
+                setSelectedColor(item)
+                updateColor(noteId,item)
+            }}>
                 <View style={{
                 backgroundColor: item,
                 width: 45,
                 height:45,
                 margin: 10,
                 borderRadius: 30
-                }}></View>
+                }}>
+                </View>
             </TouchableOpacity>
             
         );
@@ -75,6 +79,8 @@ export const UpdateNote = ({route, navigation}) => {
         navigation.navigate('Trash');
 
     }
+  
+
     const defaultColor = () =>{
         updateColor(noteId,null);
         setSelectedColor(null);

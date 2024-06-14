@@ -73,6 +73,7 @@ export const NOTES = [
     false
 
   ),
+
   new Note(
     "n5",
     COLORS[5],

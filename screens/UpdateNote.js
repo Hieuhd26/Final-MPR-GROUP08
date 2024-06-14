@@ -1,9 +1,7 @@
 import React, { useContext, useRef, useState } from 'react'
 import { View, Text, TextInput, StyleSheet, Pressable, Button,TouchableOpacity, Modal, ScrollView, FlatList  } from "react-native";
 import { TrashNoteContext } from "../store/context/NoteContext";
-import { COLORS } from "../data/dummy-data";
-import { LabelContext } from  "../store/context/LabelContext";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { COLORS } from "../data/dummy-data";    
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -26,7 +24,7 @@ export const UpdateNote = ({route, navigation}) => {
     const [clicks, setClicks] = useState(bookmark);
     const [selectedColor, setSelectedColor] = useState(perColor);
     const bottomSheetModalRef = useRef(null);
-    const {labels} = useContext(LabelContext);
+
 
     const renderColor = ({item}) =>{
         return (
@@ -43,21 +41,6 @@ export const UpdateNote = ({route, navigation}) => {
                 }}>
                 </View>
             </TouchableOpacity>
-            
-        );
-    }
-    const renderLabel = ({item}) =>{
-        return (
-            <View style={{flexDirection: "row"}}>
-                <View>
-                    <Text style={{
-                    backgroundColor: "#E5E4E2",
-                    margin: 5,
-                    padding: 4
-                    }}> {item.label}</Text>
-                    
-                </View>
-            </View>
         );
     }
 
@@ -89,6 +72,12 @@ export const UpdateNote = ({route, navigation}) => {
     const handleSave = () => {
         updateNote(noteId, contents);
         navigation.navigate('Root');
+    };
+    const manageLabel = () => {
+        navigation.navigate('Manage Labels', {
+            id: noteId,
+            labels: catList
+        })
     };
 
   return (
@@ -135,13 +124,22 @@ export const UpdateNote = ({route, navigation}) => {
                     </TouchableOpacity>
                     <FlatList horizontal data={COLORS} renderItem={renderColor} showsHorizontalScrollIndicator={false} />
                 </View>
-                <View style={{flexDirection: "row", marginTop:10}}>
-                <FlatList horizontal keyExtractor={(item) => item.id} data={labels.slice(0,2)} renderItem={renderLabel} style={{marginRight:0}} />
-                    <Text style={{
-                        backgroundColor: "#E5E4E2",
+                <View style={{marginTop:10}}>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {catList.map((label, index) => (
+                        <Text style={{ backgroundColor: "#E5E4E2",
                         margin: 5,
-                        padding: 4,
-                    }}> + Manage Labels </Text>
+                        padding: 4 }}>{label}</Text>                            
+                    ))}
+                    <TouchableOpacity onPress={manageLabel}>
+                        <Text style={{
+                            backgroundColor: "#E5E4E2",
+                            margin: 5,
+                            padding: 4,
+                        }}> + Manage Labels </Text>
+                    </TouchableOpacity>
+                    </ScrollView>
+                    
                 </View>
                 <TouchableOpacity onPress={moveNoteToTrash}>
                     <View style={{flexDirection: "row", marginTop:20}}>

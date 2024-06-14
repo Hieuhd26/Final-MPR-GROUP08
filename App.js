@@ -14,6 +14,7 @@ import { FolderScreen } from "./screens/FoldersScreen";
 import { LabelsScreen } from "./screens/LabelsScreen";
 import { AddNewNote } from "./screens/AddNewNote";
 import { UpdateNote } from "./screens/UpdateNote";
+import { ManageLabel } from "./screens/ManageLabel";
    
 import { TrashNoteProvider } from "./store/context/NoteContext";
 import { LabelProvider } from "./store/context/LabelContext";
@@ -82,6 +83,7 @@ export default function App() {
               />
               <Stack.Screen name="Add Note" component={AddNewNote} />
               <Stack.Screen name="Note" component={UpdateNote} />
+              <Stack.Screen name="Manage Labels" component={ManageLabel} />
             </Stack.Navigator>
           </NavigationContainer>
         </TrashNoteProvider>

@@ -8,6 +8,8 @@ export const TrashNoteContext = createContext({
   trashNotes: [],
   addNote : (content) => {},
   updateNote: (id, content) => {},
+  addNewLabel : (note_id,label_id) => {},
+  removeLabel : (note_id,label_id) => {},
   updateColor: (id, color) => {},
   searchNote: (query) => [],
   addBookmark : (id) => {},
@@ -27,6 +29,31 @@ export function TrashNoteProvider({ children }) {
     const newNote = new Note(Math.random().toString(), null,[],content, new Date(),null);
     setNotes((prevNotes) => [...prevNotes, newNote]);
   }
+  
+  function addNewLabel (note_id,label_id){
+    const oldLabels = notesList.filter((note) => {
+      if (note.id === note_id){
+        return (note)
+      }})
+    const labelArray = oldLabels[0].labelIds;
+    labelArray.push(label_id);
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === note_id ? { ...note, labelIds: labelArray } : note))
+    );
+  }
+
+  function removeLabel (note_id,label_id){
+    const oldLabels = notesList.filter((note) => {
+      if (note.id === note_id){
+        return (note)
+      }})
+    const labelArray = oldLabels[0].labelIds;
+    const filteredItems =labelArray.filter(item => item !== label_id)
+    setNotes((prevNotes) =>
+      prevNotes.map((note) => (note.id === note_id ? { ...note, labelIds: filteredItems } : note))
+    );
+  }
+
   function updateColor(id, color) {
     setNotes((prevNotes) =>
       prevNotes.map((note) => (note.id === id ? { ...note, color: color } : note))
@@ -95,7 +122,9 @@ export function TrashNoteProvider({ children }) {
     trashNotes,
     addNote : addNewNote,
     updateNote : updateNote,
+    removeLabel:removeLabel,
     updateColor : updateColor,
+    addNewLabel : addNewLabel,
     addBookmark: addBookmark,
     removeBookmark: removeBookmark,
     searchNote : searchNote,

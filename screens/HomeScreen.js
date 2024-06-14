@@ -35,7 +35,6 @@ export function HomeScreen({navigation}) {
         
       })
       .filter((label) => label !== null);
-    
       
     const now = new Date();
     const createAt = new Date(item.updateAt);

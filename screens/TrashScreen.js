@@ -14,6 +14,7 @@ import { LabelContext } from "../store/context/LabelContext";
 import bin from "../assets/bin.png";
 import { Feather } from "@expo/vector-icons";
 import CustomButton from "../components/Button";
+import { FontAwesome } from "@expo/vector-icons"
 
 export function TrashScreen() {
   const { labels, addLabel, updateLabel, deleteLabel, searchLabels } =
@@ -108,7 +109,7 @@ export function TrashScreen() {
             </View>
             <View style={styles.noteText}>
               {note.isBookmarked ? (
-                <Feather name="bookmark" size={24} color="red" />
+                <FontAwesome name="bookmark" size={20} color="gray" marginLeft="auto" />
               ) : (
                 ""
               )}
@@ -162,6 +163,7 @@ export function TrashScreen() {
         />
       </View>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={trashNotes}
         renderItem={renderTrashNoteItem}
         keyExtractor={(item) => item.id}
